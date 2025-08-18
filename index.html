@@ -1,6 +1,6 @@
 <html>
 <head>
-<script src="https://static.zdassets.com/zendesk_app_framework_sdk/2.0/zaf_sdk.min.js"></script>>a
+<script src="https://static.zdassets.com/zendesk_app_framework_sdk/2.0/zaf_sdk.min.js"></script>a
 <link href="assets/general.css" rel="stylesheet">
 <link href="assets/popup.css" rel="stylesheet">
 <style>
@@ -335,6 +335,8 @@
                         // Testa se a marca não é "Cadastro", se não está inativo e se foi resolvido há menos de 30 min
                         if (data.ticketStatus === 'closed' || (data.satisfactionScore !== '' && data.satisfactionScore !== null) || data.brandID === 13610352495003 || data.inactive === 'sim-inativo' || (data.ticketStatus === 'solved' && data.updMinutes > 30) || data.blockedSurvey == true) {
                             expired();
+                        } else {
+							showElement('yes', divEvaluation, form);
                         }
                     }, 800);
                 })
@@ -603,6 +605,7 @@
 </div>
 </body>
 </html>
+
 
 
 
