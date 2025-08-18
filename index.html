@@ -335,22 +335,6 @@
                         // Testa se a marca não é "Cadastro", se não está inativo e se foi resolvido há menos de 30 min
                         if (data.ticketStatus === 'closed' || (data.satisfactionScore !== '' && data.satisfactionScore !== null) || data.brandID === 13610352495003 || data.inactive === 'sim-inativo' || (data.ticketStatus === 'solved' && data.updMinutes > 30) || data.blockedSurvey == true) {
                             expired();
-                        } else {
-                            fetch('/api/v2/users/me.json')
-                                .then(response => response.json())
-                                .then(data => {
-                                    var userRole = data.user.role;
-
-                                    // Testa se o usuário é agente													
-
-                                    if (userRole === 'agent' || userRole === 'admin') {
-                                        showElement('yes', divEvaluation, divPermission, backButton);
-                                        showElement('no', form);
-                                    } else {
-                                        showElement('yes', divEvaluation, form);
-                                    }
-                                    console.log('Usuário é ' + userRole + '.');
-                                });
                         }
                     }, 800);
                 })
@@ -619,6 +603,7 @@
 </div>
 </body>
 </html>
+
 
 
 
