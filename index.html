@@ -1,0 +1,609 @@
+<script src="https://static.zdassets.com/zendesk_app_framework_sdk/2.0/zaf_sdk.min.js"></script>
+<link href="{{asset 'popup.css'}}" rel="stylesheet">
+<style>
+    * {
+        margin: 0px;
+        -webkit-font-smoothing: subpixel-antialiased;
+        -moz-osx-font-smoothing: subpixel-antialiased;
+    }
+
+    #loading {
+        border: 12px solid transparent;
+        border-top: 12px solid #ff6600;
+        border-radius: 50%;
+        width: 120px;
+        height: 120px;
+        animation: spin 1.2s ease-out infinite;
+        margin: 50px auto;
+    }
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
+    footer,
+    iframe,
+    .pull-right,
+    .modal-container {
+        display: none;
+    }
+
+    body {
+        background-color: #f3f3f3;
+        background: url({{asset 'csat_bg.jpg'}});
+    }
+
+    /*
+  	@media (prefers-color-scheme: dark) {
+    	body {
+      	background: #333;
+      	color: #f3f3f3;
+    	}
+		}
+*/
+
+    #nps-form,
+    #nps-options,
+    .form-header,
+    .nps-group,
+    .additional-question-container,
+    .additional-questions,
+    .comment-container {
+        display: flex;
+    }
+
+    .form-header {
+        background-color: #fefefe;
+        height: 70px;
+        padding: 0px 25px;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        border-bottom: 0.5px solid #ccc;
+    }
+
+    .container {
+        background: transparent;
+    }
+
+    h3 {
+        font-weight: 530;
+        margin-bottom: 20px;
+        text-align: justify;
+    }
+
+    label {
+        font-weight: 480;
+        font-size: 15px;
+    }
+
+    .form-header>.cell {
+        display: flex;
+        width: 33.3%;
+        align-items: center;
+    }
+
+    .form-header>.cell.one {
+        justify-content: flex-start;
+    }
+
+    .cell.one>.cell-container {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        align-items: center;
+    }
+
+    .form-header>.cell.two {
+        justify-content: center;
+    }
+
+    .form-header>.cell.three {
+        justify-content: flex-end;
+    }
+
+    span.form-logo {
+        background: url(https://apostaganha.zendesk.com/hc/theming_assets/01HZPMC44AMCPJ2V33FKYJJC1Q);
+        background-repeat: no-repeat;
+        height: 152px;
+        width: 431px;
+        display: block;
+        zoom: 25%;
+    }
+
+    span.advise {
+        background: url({{asset '+18.png'}});
+        background-repeat: no-repeat;
+        width: 622px;
+        height: 50px;
+        display: block;
+        zoom: 20%;
+    }
+
+    a.form-button {
+        height: 80%;
+        width: auto;
+        font-size: 8pt;
+        text-align: center;
+        font-weight: 500;
+        border-radius: 0.7rem;
+        padding: 7px 8px;
+        text-wrap: nowrap;
+    }
+
+    a.form-button,
+    .button-large.submit,
+    input[type=submit] {
+        background: #f60;
+        color: #fff;
+    }
+
+    a.form-button:hover,
+    a.form-buttom:active,
+    .button-large.submit:hover,
+    input[type=submit]:hover {
+        background: rgb(199 98 31);
+        color: #f3f3f3;
+    }
+
+    #nps-form,
+    .additional-questions,
+    .comment-container {
+        flex-direction: column;
+    }
+
+    #nps-options {
+        justify-content: center;
+        color: #ffe;
+        height: 125px;
+    }
+
+    .nps-group {
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100px;
+    }
+
+    .nps-option {
+        display: flex;
+        width: 15%;
+        min-width: 40px;
+        max-width: 92px;
+        height: 50%;
+        min-height: 40px;
+        margin: 0px 5px;
+        border-radius: 10px;
+        justify-content: center;
+        align-items: center;
+        font-size: 15.6pt;
+        font-weight: 500;
+        border-width: 0px;
+        border-style: solid;
+        text-shadow: 1px 1px 0px rgb(0 0 0 / 25%);
+        cursor: pointer;
+    }
+
+    .nps-option::after {
+        display: inline-block;
+        font-size: 11px;
+        color: black;
+        max-width: 65px;
+        text-align: center;
+        text-shadow: none;
+        position: absolute;
+        margin-top: 92px;
+        font-family: Segoe UI, sans-serif;
+        font-weight: 400;
+    }
+
+    @media (min-width: 700px) {
+        .nps-option {
+            height: 60%;
+            font-size: 18.5pt;
+        }
+
+        .nps-option::after {
+            font-size: 16px;
+            max-width: 100px;
+            margin-top: 112px;
+        }
+
+        label {
+            font-size: 18px;
+        }
+    }
+
+    .nps-option.red-one {
+        background: #CC2334;
+    }
+
+    .nps-option.red-one::after {
+        content: "Muito insatisfeito";
+    }
+
+    .nps-option.red-two {
+        background: #EF4B3F;
+    }
+
+    .nps-option.red-two::after {
+        content: "Insatisfeito";
+    }
+
+    .nps-option.yellow {
+        background: #ff8a3a;
+    }
+
+    .nps-option.yellow::after {
+        content: "Neutro";
+    }
+
+    .nps-option.green-four {
+        background: #7CC253;
+    }
+
+    .nps-option.green-four::after {
+        content: "Satisfeito";
+    }
+
+    .nps-option.green-five {
+        background: #32BF43;
+    }
+
+    .nps-option.green-five::after {
+        content: "Muito satisfeito";
+    }
+
+    .nps-option.selected {
+        border-width: 3px 1px 1px 1px;
+        border-color: rgba(0, 0, 0, 0.35);
+        box-shadow: 0px 2px 3px -1px rgb(255 255 255);
+    }
+
+    .comment-fields {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        height: 240px;
+    }
+</style>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const urlParams = new URLSearchParams(window.location.search);
+        const ticketId = urlParams.get('id_ticket');
+
+        const endpointGetURL = "https://dlyebhhe5cd3ujktcfdrrueh6a0eeakh.lambda-url.us-east-1.on.aws";
+        const endpointPostURL = "https://slfdtardiaoxncbc434urbo3wi0gyfmr.lambda-url.us-east-1.on.aws";
+
+        // "https://yze66efa5okmfrg4qqphlirvfy0ondez.lambda-url.us-east-1.on.aws";
+
+        document.title = 'Aposta Ganha - Avaliação #' + `${ticketId}`;
+
+        function showElement(action, ...elements) {
+            elements.forEach(element => {
+                if (element) {
+                    if (action == 'yes') {
+                        element.classList.remove('hidden');
+                    } else {
+                        element.classList.add('hidden');
+                    }
+                }
+            });
+        }
+
+        const loadingIcon = document.getElementById('loading');
+        function showLoading(bool) {
+            showElement(bool, loadingIcon);
+        }
+
+        const divExpired = document.getElementById('expired');
+        const divPermission = document.getElementById('permission');
+        const backButton = document.querySelector('.back-button');
+        const submitButton = document.getElementById('submit-button');
+
+        function expired() {
+            showElement('yes', divExpired, backButton, divEvaluation);
+            showElement('no', form);
+        }
+
+        const divEvaluation = document.getElementById('wrap-evaluation');
+        const form = document.getElementById('nps-form');
+
+        // Testa se o ticket está aberto ou não
+
+        if (ticketId) {
+            showLoading('yes');
+            const getURL = `${endpointGetURL}?ticketId=${ticketId}`; // Passa o ID do ticket no GET
+            fetch(getURL)
+                .then(response => response.json())
+                .then(data => {
+                    setTimeout(function () {
+                        showLoading('no');
+
+                        // Testa se a marca não é "Cadastro", se não está inativo e se foi resolvido há menos de 30 min
+                        if (data.ticketStatus === 'closed' || (data.satisfactionScore !== '' && data.satisfactionScore !== null) || data.brandID === 13610352495003 || data.inactive === 'sim-inativo' || (data.ticketStatus === 'solved' && data.updMinutes > 30) || data.blockedSurvey == true) {
+                            expired();
+                        } else {
+                            fetch('/api/v2/users/me.json')
+                                .then(response => response.json())
+                                .then(data => {
+                                    var userRole = data.user.role;
+
+                                    // Testa se o usuário é agente													
+
+                                    if (userRole === 'agent' || userRole === 'admin') {
+                                        showElement('yes', divEvaluation, divPermission, backButton);
+                                        showElement('no', form);
+                                    } else {
+                                        showElement('yes', divEvaluation, form);
+                                    }
+                                    console.log('Usuário é ' + userRole + '.');
+                                });
+                        }
+                    }, 800);
+                })
+                .catch(error => {
+                    showLoading('no');
+                    expired();
+                    console.error('Erro!', error);
+                });
+        } else {
+            showLoading('no');
+            expired();
+        }
+
+        const npsOptions = document.querySelectorAll('.nps-option');
+        const additionalQuestionsContainers = document.querySelectorAll('.additional-questions');
+        const commentContainer = document.getElementById('comment-container');
+        const successMessage = document.getElementById('success-message');
+        const successMessageRA = document.getElementById('success-message');
+
+        // Esconde todas as perguntas adicionais inicialmente
+        function hideAdditionalQuestions() {
+            additionalQuestionsContainers.forEach(container => {
+                container.classList.add('hidden');
+            });
+        }
+
+        // Mostra as perguntas adicionais com base na pontuação do NPS
+        function showAdditionalQuestions(score) {
+            hideAdditionalQuestions();
+            let containerId = '';
+            if (score < 3) {
+                containerId = 'additional-questions-1-2';
+            } else if (score == 3) {
+                containerId = 'additional-questions-3-3';
+            } else if (score > 3) {
+                containerId = 'additional-questions-4-5';
+            }
+
+            const containerToShow = document.getElementById(containerId);
+            if (containerToShow) {
+                containerToShow.classList.remove('hidden');
+            }
+        }
+
+        // Adiciona evento de clique para cada opção do NPS
+        npsOptions.forEach(option => {
+            option.addEventListener('click', function () {
+                // Remove a seleção de todas as opções e marca a atual como selecionada
+                npsOptions.forEach(opt => opt.classList.remove('selected'));
+                this.classList.add('selected');
+
+                const score = parseInt(this.getAttribute('data-value'), 10);
+                showAdditionalQuestions(score);
+                commentContainer.classList.remove('hidden');
+            });
+        });
+
+        // Lida com a submissão do formulário
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            submitButton.disabled = true;
+            submitButton.value = 'Enviando...';
+
+            const selectedNpsOption = document.querySelector('.nps-option.selected');
+            const npsValue = selectedNpsOption ? selectedNpsOption.getAttribute('data-value') : null;
+            const comment = document.getElementById('comment').value;
+            const additionalResponseElement = document.querySelector('.additional-questions:not(.hidden) input[type="radio"]:checked');
+            const additionalResponse = additionalResponseElement ? additionalResponseElement.value : '';
+
+            const successMessage = document.getElementById('success-message');
+            const awardRA = document.getElementById('RA-award');
+
+            function showSuccess() {
+                showLoading('yes');
+                showElement('no', form);
+
+                setTimeout(function () {
+                    if (npsValue >= 4) {
+                        showElement('yes', successMessage);
+                        showElement('no', backButton);
+                        showLoading('no');
+                    } else {
+                        showElement('yes', successMessage, backButton);
+                        showLoading('no');
+                    }
+                }, 500)
+
+                console.log("A nota foi: ", npsValue);
+            }
+
+            if (!npsValue || !additionalResponse) {
+                alert('Por favor, complete todas as partes do formulário antes de enviar.');
+                return;
+            } else if (!ticketId) {
+                alert('Ticket inválido');
+                return;
+            }
+
+            const data = {
+                npsValue,
+                comment,
+                additionalResponse,
+                ticketId // Usando o valor obtido da URL
+            };
+
+            console.log('Dados para enviar:', data);
+            console.log('Payload enviado:', JSON.stringify(data));
+
+            // Passa os dados através dos parâmetros da URL
+            const postURL = `${endpointPostURL}?ticketId=${encodeURIComponent(ticketId)}&npsValue=${encodeURIComponent(npsValue)}&comment=${encodeURIComponent(comment)}&additionalResponse=${encodeURIComponent(additionalResponse)}`;
+
+            fetch(postURL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: ''
+            })
+                .then(response => response.json())
+                .then(data => {
+                    showSuccess();
+                    console.log('Sucesso:', data);
+                })
+                .catch((error) => {
+                    console.error('Erro:', error);
+                });
+        });
+    });
+</script>
+<div class="form-header">
+    <div class="cell one">
+        <div class="cell-container">
+            <a href="https://apostaganha.bet.br">
+                <span class="form-logo"></span>
+            </a>
+            <span class="advise" title="[+18] Jogue com responsabilidade"></span>
+        </div>
+    </div>
+    <div class="cell two"></div>
+    <div class="cell three">
+        <a href="https://apostaganha.bet.br" class="form-button">Voltar para o site</a>
+    </div>
+</div>
+<div class="container form-container">
+    <div id="loading" class="hidden"></div>
+    <div id="wrap-evaluation" class="hidden">
+        <form id="nps-form">
+            <h3>Para continuar melhorando o nosso desempenho no chat, deixe a sua nota para o(a) atendente:</h3>
+            <input type="hidden" name="id_ticket" id="id_ticket" value="">
+            <div id="nps-options">
+                <div class="nps-group">
+                    <div class="nps-option red-one" data-value="1">1</div>
+                    <div class="nps-option red-two" data-value="2">2</div>
+                    <div class="nps-option yellow" data-value="3">3</div>
+                    <div class="nps-option green-four" data-value="4">4</div>
+                    <div class="nps-option green-five" data-value="5">5</div>
+                </div>
+            </div>
+            <div id="additional-question-container">
+                <div id="additional-questions-1-2" class="additional-questions hidden">
+                    <h3>O que você não gostou no atendimento do(a) atendente?</h3>
+                    <label><input type="radio" name="additional-response" value="O atendimento foi demorado" required> O
+                        atendimento
+                        foi demorado</label>
+                    <label><input type="radio" name="additional-response" value="O atendente não fez bom atendimento"
+                            required> O
+                        atendente não fez bom atendimento</label>
+                    <label><input type="radio" name="additional-response"
+                            value="O atendimento não foi claro e eficiente" required> O atendimento não foi claro e
+                        eficiente</label>
+                    <label><input type="radio" name="additional-response" value="Navegação no chat foi difícil"
+                            required>
+                        Navegação
+                        no chat foi difícil</label>
+                </div>
+                <div id="additional-questions-3-3" class="additional-questions hidden">
+                    <h3>O que você esperava que fosse melhor no atendimento do(a) atendente?</h3>
+                    <label><input type="radio" name="additional-response" value="Resolução precisa ser mais rápida"
+                            required>
+                        Resolução mais
+                        rápida</label>
+                    <label><input type="radio" name="additional-response" value="Atendimento precisa melhorar" required>
+                        Atendimento
+                        melhor</label>
+                    <label><input type="radio" name="additional-response"
+                            value="Informações precisam ser mais completas e claras" required>
+                        Informações mais completas e claras</label>
+                    <label><input type="radio" name="additional-response"
+                            value="Navegação no chat precisa ser mais fácil" required>
+                        Navegação
+                        mais fácil no chat</label>
+                </div>
+                <div id="additional-questions-4-5" class="additional-questions hidden">
+                    <h3>O que mais te agradou no atendimento do(a) atendente?</h3>
+                    <label><input type="radio" name="additional-response" value="O atendimento humano foi excelente"
+                            required> O
+                        atendimento humano foi excelente</label>
+                    <label><input type="radio" name="additional-response" value="O atendimento foi rápido" required> O
+                        atendimento
+                        foi rápido</label>
+                    <label><input type="radio" name="additional-response"
+                            value="As informações foram claras e completas" required>
+                        As informações foram claras e completas</label>
+                    <label><input type="radio" name="additional-response" value="O meu problema foi resolvido" required>
+                        O meu
+                        problema foi resolvido</label>
+                </div>
+            </div>
+            <input type="hidden" id="nps-score" name="nps-score">
+            <div id="comment-container" class="comment-fields hidden">
+                <h3 id="titulo_coment">Nos conte em poucas palavras o motivo da
+                    sua avaliação para esse atendimento:</h3>
+                <textarea id="comment" name="comment" placeholder="Insira seu comentário"></textarea>
+                <div id="submit-container">
+                    <input type="submit" value="Enviar avaliação" id="submit-button" class="submit">
+                </div>
+            </div>
+        </form>
+        <div id="success-message" class="hidden">
+            <h3>Obrigado pelo seu feedback! Vem pro play!</h3>
+        </div>
+        <div id="RA-award" class="hidden">
+            <h3 style="text-align: center;margin-top: 35px;">Aproveita e vota na gente no <strong>Prêmio Reclame Aqui
+                    2024!</strong></h3>
+            <div id="popup"
+                style="display: block; position: relative; left: 50%; transform: translate(-50%, 0%); border-radius: 10px;">
+                <div id="popup-content">
+                    <div class="pop-top">
+                        <span class="logo"></span>
+                        <span class="separator"></span>
+                        <span class="award"></span>
+                    </div>
+                    <div id="popup-message">
+                        <section class="pop-images">
+                            <span class="ervilho"></span>
+                            <span class="ag-logo"></span>
+                        </section>
+                        <h2 class="pop-h2">Estamos concorrendo ao Prêmio RA 2024!</h2>
+                        <h3 class="pop-h3">Categoria: Casas de Apostas - Bet - Grandes Operações</h3>
+                    </div>
+                    <div id="popup-action">
+                        <a href="https://www.reclameaqui.com.br/empresa/aposta-ganha/premio/" target="_blank"
+                            class="vote-btn">
+                            <input type="submit" value="Votar agora!">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="expired" class="hidden">
+        <h3>Essa pesquisa já foi avaliada ou expirou.</h3>
+    </div>
+    <div id="permission" class="hidden">
+        <h3>Epa! Você não tem permissão para visualizar essa página.</h3>
+    </div>
+    <a href="https://apostaganha.bet.br" class="back-button hidden">
+        <input type="submit" value="Voltar para o site" />
+    </a>
+</div>
+<script src="{{asset 'popup.js'}}" crossorigin="anonymous"></script>
