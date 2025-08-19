@@ -403,7 +403,7 @@
         const submitButton = document.getElementById('submit-button');
 
         function expired() {
-            showElement('yes', divExpired, backButton, divEvaluation);
+            showElement('yes', divExpired, divEvaluation); // backButton
             showElement('no', form);
         }
 
@@ -509,7 +509,8 @@
                         showElement('no', backButton);
                         showLoading('no');
                     } else {
-                        showElement('yes', successMessage, backButton);
+                        showElement('yes', successMessage);
+						showElement('no', backButton);
                         showLoading('no');
                     }
                 }, 500)
@@ -694,6 +695,7 @@
 </div>
 </body>
 </html>
+
 
 
 
