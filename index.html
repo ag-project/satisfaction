@@ -178,16 +178,18 @@
     	width: 100%;
 	}
 
-	@media (min-width: 768px) {
+	@media (max-width: 768px) {
 		#submit-container {
-			background: #f3f3f3;
+			background: #f3f3f380;
     		bottom: 0;
     		left: 0;
     		right: 0;
     		position: fixed;
     		padding: 20px 15px 20px 15px;
 		}
-		
+	}
+	
+	@media (min-width: 768px) {
     	.button-large, input[type=submit] {
         	width: auto;
     	}
@@ -689,6 +691,7 @@
 </div>
 </body>
 </html>
+
 
 
 
