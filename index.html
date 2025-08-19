@@ -7,6 +7,7 @@
 <style>
     * {
         margin: 0px;
+		box-sizing: border-box;
         -webkit-font-smoothing: subpixel-antialiased;
         -moz-osx-font-smoothing: subpixel-antialiased;
     }
@@ -84,6 +85,18 @@
 		margin-left: auto;
     }
 
+	@media (min-width: 992px) {
+    	.container {
+        	width: 970px;
+    	}
+	}
+
+	@media (min-width: 768px) {
+    	.container {
+        	width: 750px;
+    	}
+	}
+
     h3 {
 		font-size: 24px;
         font-weight: 530;
@@ -105,6 +118,7 @@
     label {
         font-weight: 480;
         font-size: 15px;
+		margin-bottom: 5px;
     }
 
     .form-header>.cell {
@@ -150,6 +164,17 @@
         zoom: 20%;
     }
 
+	.button-large, input[type=submit] {
+    	border: 0;
+    	border-radius: 4px;
+    	font-size: 14px;
+    	font-weight: 400;
+    	line-height: 2.72;
+    	min-width: 190px;
+    	padding: 0 1.9286em;
+    	width: 100%;
+	}
+
     a.form-button {
         height: 80%;
         width: auto;
@@ -159,6 +184,8 @@
         border-radius: 0.7rem;
         padding: 7px 8px;
         text-wrap: nowrap;
+		-webkit-appearance: button;
+    	cursor: pointer;
     }
 
     a.form-button,
@@ -296,6 +323,26 @@
         justify-content: space-around;
         height: 240px;
     }
+
+	button, input, select, textarea {
+    	font-family: inherit;
+    	font-size: inherit;
+    	line-height: inherit;
+	}
+
+	textarea {
+		overflow: auto;
+		border: 1px solid #ddd;
+		border-radius: 2px;
+		resize: vertical;
+		width: 100%;
+		outline: none;
+		padding: 10px;
+	}
+
+	textarea:focus {
+ 		border: 1px solid rgba(255, 102, 0, 1);
+	}
 </style>
 <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -623,6 +670,7 @@
 </div>
 </body>
 </html>
+
 
 
 
