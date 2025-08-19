@@ -165,6 +165,8 @@
     }
 
 	.button-large, input[type=submit] {
+		-webkit-appearance: button;
+    	cursor: pointer;
     	border: 0;
     	border-radius: 4px;
     	font-size: 14px;
@@ -173,6 +175,12 @@
     	min-width: 190px;
     	padding: 0 1.9286em;
     	width: 100%;
+	}
+
+	@media (min-width: 768px) {
+    	.button-large, input[type=submit] {
+        	width: auto;
+    	}
 	}
 
     a.form-button {
@@ -670,6 +678,7 @@
 </div>
 </body>
 </html>
+
 
 
 
