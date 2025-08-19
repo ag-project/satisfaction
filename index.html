@@ -1,5 +1,6 @@
 <html>
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script src="https://static.zdassets.com/zendesk_app_framework_sdk/2.0/zaf_sdk.min.js"></script>
 <link href="assets/general.css" rel="stylesheet">
 <link href="assets/popup.css" rel="stylesheet">
@@ -42,6 +43,7 @@
     	font-size: 15px;
         background-color: #f3f3f3;
         background: url('assets/bg.jpg');
+		color: #333;
     }
 
     /*
@@ -50,8 +52,8 @@
       	background: #333;
       	color: #f3f3f3;
     	}
-		}
-*/
+	}
+	*/
 
     #nps-form,
     #nps-options,
@@ -75,6 +77,11 @@
 
     .container {
         background: transparent;
+		padding-right: 15px;
+		padding-left: 15px;
+		margin-top: 20px;
+		margin-right: auto;
+		margin-left: auto;
     }
 
     h3 {
@@ -82,7 +89,18 @@
         font-weight: 530;
         margin-bottom: 20px;
         text-align: justify;
+		line-height: 1.1;
+		text-wrap-style: stable;
     }
+
+	@media (max-width: 480px) {
+    	body h1 {
+        	font-size: 22px;
+    	}
+    	body h3 {
+        	font-size: 17px;
+    	}
+	}
 
     label {
         font-weight: 480;
@@ -605,6 +623,7 @@
 </div>
 </body>
 </html>
+
 
 
 
