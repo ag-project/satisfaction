@@ -23,7 +23,8 @@
     background: #292A2B;
     align-content: center;
     flex-wrap: wrap;
-    justify-content: space-evenly;
+    justify-content: center;    /* justify-content: space-evenly; */
+    gap: 20px;    /* no-gap */
     align-items: center;
     border-radius: 4px;
 }
@@ -35,10 +36,11 @@
 }
 
 .logo {
-    background: url(https://storage.googleapis.com/premiora-files/voting-box-logo.svg) no-repeat;
-    height: 19px;
-    width: 54px;
-    zoom: 120%;
+    background: url(../assets/ra-blank.png) no-repeat;
+    background-size: contain;
+    height: 40px;    /* height: 19px; */
+    width: 40px;    /* width: 54px; */
+    zoom: 100%;    /* zoom: 120%; */    
 }
 
 .separator {
@@ -48,10 +50,11 @@
 }
 
 .award {
-    background: url(https://storage.googleapis.com/premiora-files/voting-box-title.svg) no-repeat;
-    width: 145px;
-    height: 11px;
-    zoom: 120%;
+    background: url(../assets/premio.webp) no-repeat;
+    background-size: contain;
+    width: 84px;    /* width: 145px; */
+    height: 40px;    /* height: 11px; */
+    zoom: 100%;    /* zoom: 120%; */   
 }
 
 #popup {
@@ -86,7 +89,7 @@
 
 .ervilho {
     display: block;
-    background: url(https://ajuda.apostaganha.bet/hc/theming_assets/01J6W55JFMQJXN4P577SSA6SPY) no-repeat;
+    background: url(../assets/ra-mascot.png) no-repeat;
     width: 245px;
     height: 270px;
     margin-right: -40px;
