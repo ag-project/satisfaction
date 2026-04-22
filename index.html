@@ -390,55 +390,37 @@
 		</style>
 		<script>
 		    document.addEventListener('DOMContentLoaded', function () {
-				(function() {
-    				// 1. Obtém os parâmetros da URL
-    				const urlParams = new URLSearchParams(window.location.search);
-    				const brand = urlParams.get('brand');
+				const urlParams = new URLSearchParams(window.location.search);
+    			const brand = urlParams.get('brand');
+    			const ticketId = urlParams.get('id_ticket');
 
-		    		// 2. Verifica se o valor é exatamente 'x'
-    				if (brand === 'receba') {
-        			// 3. Cria o elemento de estilo
-		        	const style = document.createElement('style');
-        			style.type = 'text/css';
+				let brandName = 'Aposta Ganha';
 
-        			// 4. Define as regras CSS
-        			const css = `
+    			// 2. Aplicação do CSS dinâmico (Brand: Receba)
+    			if (brand === 'receba') {
+					brandName = 'Receba';
+        			const style = document.createElement('style');
+        			style.innerHTML = `
             			a.form-button, .button-large.submit, input[type=submit] {
                 			background: #0060d7 !important;
                 			color: #fff !important;
             			}
-
             			input[type=submit]:hover {
                 			background: #2b69b7 !important;
-                			color: #fff !important;
-		            	}
-
-        		    	#loading {
-                			border: 12px solid transparent;
-                			border-top: 12px solid #0060d7 !important;
+            			}
+            			#loading {
+                			border-top-color: #0060d7 !important;
             			}
         			`;
-
-        			// 5. Injeta o CSS no elemento e o adiciona ao <head>
-        			if (style.styleSheet) {
-		            	style.styleSheet.cssText = css; // Suporte para navegadores muito antigos (IE)
-        			} else {
-            			style.appendChild(document.createTextNode(css));
-        			}		
-
         			document.head.appendChild(style);
-    			}
-			})();				
-				
-		        const urlParams = new URLSearchParams(window.location.search);
-		        const ticketId = urlParams.get('id_ticket');
-		
+    			}		
+	
 		        const endpointGetURL = "https://dlyebhhe5cd3ujktcfdrrueh6a0eeakh.lambda-url.us-east-1.on.aws";
 		        const endpointPostURL = "https://slfdtardiaoxncbc434urbo3wi0gyfmr.lambda-url.us-east-1.on.aws";
 		
 		        // "https://yze66efa5okmfrg4qqphlirvfy0ondez.lambda-url.us-east-1.on.aws";
 		
-		        document.title = 'Aposta Ganha - Avaliação #' + `${ticketId}`;
+		        document.title = `${brandName}` + ' - Avaliação #' + `${ticketId}`;
 		
 		        function showElement(action, ...elements) {
 		            elements.forEach(element => {
