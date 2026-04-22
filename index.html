@@ -11,6 +11,48 @@
 				y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
 			})(window, document, "clarity", "script", "tpmoctk9y4");
 		</script>
+		<script>
+		(function() {
+    		// 1. Obtém os parâmetros da URL
+    		const urlParams = new URLSearchParams(window.location.search);
+    		const brand = urlParams.get('brand');
+
+    		// 2. Verifica se o valor é exatamente 'x'
+    		if (brand === 'receba') {
+        		// 3. Cria o elemento de estilo
+		        const style = document.createElement('style');
+        		style.type = 'text/css';
+
+        		// 4. Define as regras CSS
+        		const css = `
+            		a.form-button, .button-large.submit, input[type=submit] {
+                		background: #0060d7 !important;
+                		color: #fff !important;
+            		}
+
+            		input[type=submit]:hover {
+                		background: #2b69b7 !important;
+                		color: #fff !important;
+		            }
+
+        		    #loading {
+                		border: 12px solid transparent;
+                		border-top: 12px solid #0060d7 !important;
+            		}
+        		`;
+
+        		// 5. Injeta o CSS no elemento e o adiciona ao <head>
+        		if (style.styleSheet) {
+		            style.styleSheet.cssText = css; // Suporte para navegadores muito antigos (IE)
+        		} else {
+            		style.appendChild(document.createTextNode(css));
+        		}		
+
+        		document.head.appendChild(style);
+    		}
+		})();
+		</script>
+		
 		<style>
 		    * {
 		        margin: 0px;
