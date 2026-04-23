@@ -396,7 +396,7 @@
 
 				let brandName = 'Aposta Ganha';
 
-    			// 2. Aplicação do CSS dinâmico (Brand: Receba)
+    			// Aplicação do CSS dinâmico (Brand: Receba)
     			if (brand === 'receba') {
 					brandName = 'Receba';
         			const style = document.createElement('style');
@@ -415,10 +415,15 @@
         			document.head.appendChild(style);
 
 					const siteLinks = document.querySelectorAll('a[href="https://apostaganha.bet.br"]');
-    
-    				siteLinks.forEach(link => {
+       				siteLinks.forEach(link => {
         				link.href = "https://receba.bet.br";
     				});
+
+					const newSuccessText = "Obrigado! Sua avaliação ajuda a Receba a melhorar cada vez mais. 💙";
+					const successH3 = document.querySelector('#success-message h3');
+    				if (successH3) {
+    				    successH3.textContent = newSuccessText;
+    				}
     			}		
 	
 		        const endpointGetURL = "https://dlyebhhe5cd3ujktcfdrrueh6a0eeakh.lambda-url.us-east-1.on.aws";
